@@ -1,0 +1,86 @@
+/* Tokens do design system (skill_front.md). Tema escuro é o padrão; o claro é o derivado. */
+:root {
+  /* cores */
+  --primary: #3B82F6;
+  --on-primary: #FFFFFF;
+  --canvas: #0F1012;
+  --surface: #17181B;
+  --surface-raised: #2A2A2D;
+  --ink: #FFFFFF;
+  --body: #F5F6F8;
+  --muted: #B5BAC1;
+  --faint: #9AA0AB;
+  --hairline: #2A2C31;
+  --focus-ring: #3B82F6;
+
+  /* acentos: somente decorativos (hero e marca) */
+  --accent: #F472B6;
+  --accent-1: #5865F2;
+  --accent-2: #E4572E;
+  --accent-3: #0F9D58;
+  --accent-4: #D6336C;
+  --accent-5: #F59F00;
+  --accent-6: #7048E8;
+
+  /* fontes */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-editorial: ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  /* raios */
+  --r-none: 0px; --r-xs: 4px; --r-sm: 8px; --r-md: 10px;
+  --r-lg: 14px; --r-xl: 18px; --r-xxl: 22px; --r-full: 9999px;
+
+  /* espaçamento */
+  --s-xxs: 4px; --s-xs: 8px; --s-sm: 12px; --s-md: 16px; --s-lg: 20px;
+  --s-xl: 24px; --s-xxl: 28px; --s-xxxl: 32px; --s-section: 40px; --s-band: 48px;
+
+  /* sombras (layered-micro) */
+  --shadow-md: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;
+  --shadow-lg: oklab(0.999994 0.0000455678 0.0000200868 / 0.04) 0px 0px 0px 1px,
+               oklab(0 0 0 / 0.25) 0px 20px 25px -5px, oklab(0 0 0 / 0.25) 0px 8px 10px -6px;
+  --shadow-xl: rgb(23, 24, 27) 0px 0px 0px 2px, rgb(245, 246, 248) 0px 0px 0px 4px;
+
+  /* gradientes de marca */
+  --grad-hero: radial-gradient(closest-side, color(srgb 0.231373 0.509804 0.964706 / 0.16), rgba(0, 0, 0, 0) 72%);
+  --grad-line: linear-gradient(to right in oklab, rgb(59, 130, 246) 0%, rgb(37, 99, 235) 50%, rgb(59, 130, 246) 100%);
+  --grad-fade-up: linear-gradient(to top in oklab, rgb(11, 12, 14) 0%, rgba(0, 0, 0, 0) 100%);
+  --dot-grid: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, rgba(0, 0, 0, 0) 0px);
+
+  /* superfícies translúcidas usadas por componentes */
+  --tint-primary: rgba(59, 130, 246, 0.08);
+  --tint-primary-border: rgba(59, 130, 246, 0.3);
+  --tint-neutral: rgba(42, 44, 49, 0.4);
+  --tint-neutral-border: rgba(42, 44, 49, 0.6);
+  --tint-ghost: rgba(255, 255, 255, 0.15);
+  --card-lg-bg: oklab(0.209237 0.000128426 -0.00610217 / 0.6);
+
+  --container: 1104px;
+  --header-h: 64px;
+  color-scheme: dark;
+}
+
+/* Tema claro (derivado) */
+:root[data-theme="light"] {
+  --canvas: #F7FAFF;
+  --surface: #EDF0F5;
+  --surface-raised: #E6E9ED;
+  --ink: #13171C;
+  --body: #13171C;
+  --muted: #696C70;
+  --faint: #7D8085;
+  --hairline: #D4D7DB;
+  --primary: #1469F4;
+  --tint-primary: rgba(20, 105, 244, 0.08);
+  --tint-primary-border: rgba(20, 105, 244, 0.3);
+  --tint-neutral: rgba(19, 23, 28, 0.04);
+  --tint-neutral-border: rgba(19, 23, 28, 0.12);
+  --tint-ghost: rgba(19, 23, 28, 0.06);
+  --card-lg-bg: rgba(237, 240, 245, 0.7);
+  --shadow-lg: rgba(19, 23, 28, 0.06) 0px 0px 0px 1px, rgba(19, 23, 28, 0.08) 0px 20px 25px -5px,
+               rgba(19, 23, 28, 0.06) 0px 8px 10px -6px;
+  --shadow-xl: rgb(247, 250, 255) 0px 0px 0px 2px, rgb(19, 23, 28) 0px 0px 0px 4px;
+  --grad-fade-up: linear-gradient(to top, rgba(247, 250, 255, 1) 0%, rgba(247, 250, 255, 0) 100%);
+  --dot-grid: radial-gradient(circle at 1px 1px, rgba(19, 23, 28, 0.07) 1px, rgba(0, 0, 0, 0) 0px);
+  color-scheme: light;
+}

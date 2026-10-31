@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>mAInd · um robô amigo para os dias difíceis</title>
+  <meta name="description" content="mAInd: chatbot de acolhimento que entende como você está se sentindo e indica conteúdo de apoio. Projeto de Machine Learning (C318, Inatel).">
+  <link rel="icon" href="assets/img/logo-mark.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body data-page="home">
+  <header id="site-header"></header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-glow alt" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="pill"><span class="dot on"></span>Projeto de Machine Learning · C318 · Inatel</span>
+          <h1 class="t-display">Um robô amigo<br>para os <span class="grad-text">dias difíceis.</span></h1>
+          <p class="lead">Conte com suas palavras como você está se sentindo. O mAInd entende o tema do seu relato e mostra o conteúdo de apoio certo, sem formulários e sem julgamento.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-lg btn-primary" href="chat.html">Começar uma conversa <span data-icon="arrow"></span></a>
+            <a class="btn btn-lg btn-ghost" href="#modelo">Ver como o modelo funciona</a>
+          </div>
+          <div class="hero-meta">
+            <div><strong>Texto livre</strong><span class="b-sm muted">em português</span></div>
+            <div><strong>5 temas</strong><span class="b-sm muted">reconhecidos pelo modelo</span></div>
+            <div><strong>Transparente</strong><span class="b-sm muted">mostra a confiança</span></div>
+          </div>
+        </div>
+
+        <!-- Prévia animada: exemplos ilustrativos -->
+        <div class="preview reveal" aria-label="Exemplo ilustrativo de conversa">
+          <div class="card-lg card" style="box-shadow:var(--shadow-lg)">
+            <div class="preview-top">
+              <span class="caption">Exemplo · saída real do modelo</span>
+              <span class="pill"><span class="dot on"></span>mAInd</span>
+            </div>
+            <div class="preview-msgs" id="pv-msgs"></div>
+            <div class="pv-analysis">
+              <div class="caption"><span>Análise do modelo</span><span id="pv-tema" style="color:var(--ink)"></span></div>
+              <div class="probs" id="pv-probs"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container"><div class="divider-glow"></div></div>
+
+    <!-- ============ COMO FUNCIONA ============ -->
+    <section class="section" id="como-funciona">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="caption">Como funciona</span>
+          <h2 class="t-xl">Você escreve. O mAInd entende. Você encontra apoio.</h2>
+          <p>Nada de questionário de sim ou não: um relato livre já basta para o modelo identificar o tema e sugerir o próximo passo.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card step reveal">
+            <span class="step-num">01</span>
+            <h3 class="t-sm-strong">Conte como está</h3>
+            <p>Escreva do seu jeito, em português, o que está sentindo ou vivendo.</p>
+          </article>
+          <article class="card step reveal">
+            <span class="step-num">02</span>
+            <h3 class="t-sm-strong">O modelo identifica o tema</h3>
+            <p>Um classificador de texto estima a probabilidade de cada tema. Se não tiver confiança, ele pergunta mais em vez de chutar.</p>
+          </article>
+          <article class="card step reveal">
+            <span class="step-num">03</span>
+            <h3 class="t-sm-strong">Conteúdo e encaminhamento</h3>
+            <p>Você recebe informação sobre o tema, ideias do que ajuda e quando procurar um profissional. Sinais de risco levam direto ao CVV.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TEMAS ============ -->
+    <section class="section" id="temas">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="caption">Temas</span>
+          <h2 class="t-xl">Informação para entender o que você sente</h2>
+          <p>Conteúdo de caráter informativo, escrito para acolher. Não substitui avaliação profissional.</p>
+        </div>
+        <div class="temas-grid" id="temas-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============ O MODELO ============ -->
+    <section class="section" id="modelo">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="caption">Por dentro do modelo</span>
+          <h2 class="t-xl">Um projeto de ciência de dados de ponta a ponta</h2>
+          <p>O mAInd segue o fluxo de projeto estudado na disciplina: do problema de negócio até a produção.</p>
+        </div>
+        <div class="pipeline reveal">
+          <div class="pipe-step"><span class="mono">01</span><h4>Problema de negócio</h4><p>Acolher e encaminhar a partir de um relato livre</p></div>
+          <div class="pipe-step"><span class="mono">02</span><h4>Dados</h4><p>Posts rotulados de comunidades de saúde mental</p></div>
+          <div class="pipe-step"><span class="mono">03</span><h4>Análise (EDA)</h4><p>Vocabulário por tema, duplicados, ruído</p></div>
+          <div class="pipe-step"><span class="mono">04</span><h4>Preparação</h4><p>Limpeza e embeddings multilíngues</p></div>
+          <div class="pipe-step ml"><span class="mono">05</span><h4>Modelagem</h4><p>Regressão logística com validação cruzada</p></div>
+          <div class="pipe-step ml"><span class="mono">06</span><h4>Avaliação</h4><p>F1 macro, matriz de confusão, limiar</p></div>
+          <div class="pipe-step"><span class="mono">07</span><h4>Produção</h4><p>API Flask + este frontend</p></div>
+          <div class="pipe-loop">modelagem ⇄ avaliação</div>
+        </div>
+        <div class="stack reveal">
+          <span class="pill">Classificação supervisionada · 5 classes</span>
+          <span class="pill">sentence-transformers · multilíngue</span>
+          <span class="pill">scikit-learn · LogisticRegression</span>
+          <span class="pill">Métrica: F1 macro</span>
+          <span class="pill">Limiar de confiança</span>
+          <span class="pill">Protocolo de crise por regra</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ APOIO ============ -->
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="card-lg help-band reveal">
+          <div>
+            <span class="caption">Precisa conversar com alguém agora?</span>
+            <p class="big" style="margin:12px 0 8px">CVV 188</p>
+            <p class="b-lg muted" style="margin:0;max-width:520px">O Centro de Valorização da Vida oferece apoio emocional gratuito, 24 horas por dia, por telefone e chat. Você não está sozinho.</p>
+          </div>
+          <div class="help-actions">
+            <a class="btn btn-lg btn-primary" href="tel:188"><span data-icon="phone"></span> Ligar 188</a>
+            <a class="btn btn-lg btn-ghost" href="https://cvv.org.br" target="_blank" rel="noopener">cvv.org.br <span data-icon="external"></span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="assets/js/temas.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // ícones declarados com data-icon
+      document.querySelectorAll("[data-icon]").forEach((el) => { el.outerHTML = MAIND_ICONS[el.dataset.icon]; });
+
+      // grade de temas
+      const modelados = ["ansiedade", "depressao", "estresse", "bipolaridade", "personalidade"];
+      document.getElementById("temas-grid").innerHTML = MAIND_TEMAS_ORDEM.map((id) => {
+        const t = MAIND_TEMAS[id];
+        return `<a class="card card-link tema-card reveal" href="tema.html?t=${id}" style="--glow:${t.glow}">
+          ${modelados.includes(id) ? "" : '<span class="pill tag">só conteúdo</span>'}
+          <h3 class="t-md">${t.nome}</h3>
+          <p>${t.resumo}</p>
+          <span class="go">Ler sobre ${t.nome.toLowerCase()} ${MAIND_ICONS.arrow.replace("<svg", '<svg width="14" height="14"')}</span>
+        </a>`;
+      }).join("");
+      document.querySelectorAll("#temas-grid .reveal").forEach((el, i) => setTimeout(() => el.classList.add("in"), 80 * i));
+
+      // prévia animada: 3 frases de exemplo com as probabilidades reais devolvidas pelo modelo treinado
+      const nomes = ["Estresse", "Depressão", "Bipolaridade", "Personalidade", "Ansiedade"];
+      const exemplos = [
+        { user: "Tive uma crise de pânico no ônibus e agora tenho medo de sair de casa",
+          bot: "Isso parece bem angustiante. O que você descreve tem a ver com ansiedade. Separei o que costuma ajudar, inclusive durante uma crise.",
+          p: [0.18, 0.02, 0.03, 0.02, 0.74] },
+        { user: "Faz semanas que só quero ficar na cama, nada mais tem graça.",
+          bot: "Obrigado por confiar em mim. O que você descreve pesa muito. Separei um conteúdo sobre depressão, com sinais e caminhos de ajuda.",
+          p: [0.06, 0.7, 0.16, 0.06, 0.02] },
+        { user: "Prazos da faculdade, estágio, contas... não consigo desligar.",
+          bot: "Parece que você está carregando muita coisa ao mesmo tempo. Separei algumas ideias para aliviar o estresse e organizar a rotina.",
+          p: [0.53, 0.3, 0.04, 0.08, 0.05] },
+      ];
+      const msgs = document.getElementById("pv-msgs"), probsEl = document.getElementById("pv-probs"), temaEl = document.getElementById("pv-tema");
+      let i = 0;
+      const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+      function bubble(cls, text) {
+        const el = document.createElement("div"); el.className = `pv-msg ${cls}`; el.textContent = text;
+        msgs.appendChild(el); requestAnimationFrame(() => el.classList.add("show"));
+      }
+      async function loop() {
+        const ex = exemplos[i % exemplos.length]; i++;
+        msgs.innerHTML = ""; temaEl.textContent = "";
+        renderProbs(probsEl, nomes.map((n) => ({ nome: n, p: 0 })), 0.5);
+        await sleep(400); bubble("pv-user", ex.user);
+        await sleep(900);
+        renderProbs(probsEl, nomes.map((n, k) => ({ nome: n, p: ex.p[k] })), 0.5);
+        const top = ex.p.indexOf(Math.max(...ex.p));
+        temaEl.textContent = `${nomes[top]} · ${(ex.p[top] * 100).toFixed(0)}%`;
+        await sleep(1100); bubble("pv-bot", ex.bot);
+        await sleep(5200); loop();
+      }
+      loop();
+    });
+  </script>
+</body>
+</html>

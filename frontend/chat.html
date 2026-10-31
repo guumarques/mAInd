@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>mAInd · Conversa</title>
+  <link rel="icon" href="assets/img/logo-mark.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <link rel="stylesheet" href="assets/css/chat.css">
+</head>
+<body data-page="chat">
+  <header id="site-header"></header>
+
+  <div class="chat-shell" id="shell">
+    <!-- ============ CONVERSA ============ -->
+    <main class="chat-main">
+      <div class="chat-bar">
+        <div class="title">
+          <img src="assets/img/logo-mark.png" alt="">
+          <div>
+            <strong>mAInd</strong>
+            <span class="status" id="status"><span class="dot"></span>verificando o modelo…</span>
+          </div>
+        </div>
+        <button class="btn btn-outline-2" id="reset-btn" type="button" title="Começar uma nova conversa"></button>
+        <button class="btn btn-outline-2 btn-toggle" id="panel-btn" type="button" aria-pressed="true" aria-controls="panel"></button>
+      </div>
+
+      <div class="messages" id="messages" aria-live="polite">
+        <div class="messages-inner" id="messages-inner">
+          <div class="empty" id="empty">
+            <div class="mark"><img src="assets/img/logo-mark.png" alt=""></div>
+            <h1 class="t-xl">Como você está se sentindo hoje?</h1>
+            <p>Escreva com suas palavras. Eu tento entender o que está acontecendo e te mostro um conteúdo que pode ajudar.</p>
+            <div class="chips" id="chips"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="composer">
+        <div class="composer-inner">
+          <form class="field" id="form" autocomplete="off">
+            <label for="input" class="sr-only">Sua mensagem</label>
+            <textarea id="input" rows="1" maxlength="2000" placeholder="Escreva como você está se sentindo…"></textarea>
+            <button class="send" id="send" type="submit" aria-label="Enviar" disabled></button>
+          </form>
+          <div class="hint">
+            <span>O mAInd não faz diagnóstico. Em emergência, ligue <a href="tel:188" style="color:var(--muted);text-decoration:underline">188 (CVV)</a>.</span>
+            <span class="keys"><kbd>Enter</kbd> envia · <kbd>Shift</kbd>+<kbd>Enter</kbd> nova linha</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="scrim" id="scrim"></div>
+
+    <!-- ============ PAINEL DE ANÁLISE ============ -->
+    <aside class="panel" id="panel" aria-label="Análise do modelo">
+      <div class="panel-inner">
+        <div>
+          <span class="caption">Análise do modelo</span>
+          <h2 class="t-sm" style="margin-top:6px">O que o mAInd entendeu da última mensagem</h2>
+        </div>
+        <div id="demo-note"></div>
+        <div class="block" id="result-block"><div class="panel-empty">Envie uma mensagem para ver as probabilidades de cada tema.</div></div>
+        <div class="block">
+          <span class="caption">Probabilidade por tema</span>
+          <div class="probs" id="probs"></div>
+          <p class="b-xs faint" style="margin:10px 0 0">A linha vertical marca o limiar de confiança (<span id="limiar-txt">50%</span>). Abaixo dele, o mAInd pede mais detalhes em vez de encaminhar.</p>
+        </div>
+        <div class="block">
+          <span class="caption">Pipeline</span>
+          <ul class="trace" id="trace"></ul>
+        </div>
+        <div class="block">
+          <span class="caption">Histórico da conversa</span>
+          <div class="history" id="history"><span class="b-xs faint">Nada ainda.</span></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/temas.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/chat.js"></script>
+</body>
+</html>

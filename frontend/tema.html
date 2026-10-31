@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>mAInd · Temas</title>
+  <link rel="icon" href="assets/img/logo-mark.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <style>
+    .tema-hero { position: relative; overflow: hidden; padding: 64px 0 var(--s-xxxl); isolation: isolate; }
+    .tema-hero::before { content: ""; position: absolute; z-index: -1; width: 680px; height: 520px; right: -120px; top: -220px;
+      background: radial-gradient(closest-side, var(--glow, var(--primary)), transparent 70%); opacity: .18; filter: blur(10px); }
+    .tema-hero .pill { margin-bottom: var(--s-lg); }
+    .tema-hero p.lead { margin: var(--s-md) 0 0; max-width: 640px; color: var(--muted); font-size: 16px; }
+    .tema-tabs { display: flex; gap: var(--s-xs); flex-wrap: wrap; margin-top: var(--s-xl); }
+    .tema-tabs a[aria-current="page"] { background: var(--tint-primary); color: var(--primary); border-color: var(--tint-primary-border); }
+    .tema-layout { display: grid; grid-template-columns: 1fr 320px; gap: var(--s-xxxl); align-items: start; }
+    .tema-layout section + section { margin-top: var(--s-band); }
+    .tema-layout h2 { margin-bottom: var(--s-md); }
+    .tema-layout p { margin: 0; }
+    .sinais { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-lg); }
+    .sinais .card { padding: var(--s-xl); }
+    .sinais ul { margin: var(--s-sm) 0 0; padding: 0; list-style: none; }
+    .sinais li { position: relative; padding: 6px 0 6px 18px; font-size: 14px; border-top: 1px solid var(--hairline); }
+    .sinais li:first-child { border-top: 0; }
+    .sinais li::before { content: ""; position: absolute; left: 0; top: 15px; width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
+    .ajuda { display: flex; flex-direction: column; gap: var(--s-sm); }
+    .ajuda .card { padding: var(--s-lg) var(--s-xl); display: grid; grid-template-columns: 32px 1fr; gap: var(--s-md); }
+    .ajuda .mono { color: var(--primary); padding-top: 3px; }
+    .ajuda p { color: var(--muted); font-size: 14px; margin-top: 2px; }
+    .side { position: sticky; top: calc(var(--header-h) + 24px); display: flex; flex-direction: column; gap: var(--s-lg); }
+    .side .card { padding: var(--s-xl); }
+    .side p { margin: var(--s-xs) 0 var(--s-lg); color: var(--muted); font-size: 14px; }
+    .disclaimer { margin-top: var(--s-band); padding: var(--s-lg) var(--s-xl); border: 1px dashed var(--hairline); border-radius: var(--r-lg); font-size: 13px; color: var(--faint); }
+    @media (max-width: 1023px) { .tema-layout { grid-template-columns: 1fr; } .side { position: static; } }
+    @media (max-width: 767px) { .sinais { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body data-page="temas">
+  <header id="site-header"></header>
+
+  <main id="tema-root"></main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="assets/js/temas.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(location.search);
+      const id = MAIND_TEMAS[params.get("t")] ? params.get("t") : "ansiedade";
+      const t = MAIND_TEMAS[id];
+      document.title = `mAInd · ${t.nome}`;
+      document.body.style.setProperty("--glow", t.glow);
+
+      const tabs = MAIND_TEMAS_ORDEM.map((k) =>
+        `<a class="btn btn-outline-2" href="tema.html?t=${k}"${k === id ? ' aria-current="page"' : ""}>${MAIND_TEMAS[k].nome}</a>`).join("");
+      const sinais = Object.entries(t.sinais).map(([grupo, itens]) => `
+        <div class="card"><h3 class="t-sm-strong">${grupo}</h3><ul>${itens.map((s) => `<li>${s}</li>`).join("")}</ul></div>`).join("");
+      const ajuda = t.ajuda.map(([titulo, txt], k) => `
+        <div class="card"><span class="mono">${String(k + 1).padStart(2, "0")}</span>
+          <div><h3 class="t-sm">${titulo}</h3><p>${txt}</p></div></div>`).join("");
+
+      document.getElementById("tema-root").innerHTML = `
+        <section class="tema-hero">
+          <div class="container">
+            <span class="pill"><span class="dot on"></span>Tema</span>
+            <h1 class="t-display">${t.nome}</h1>
+            <p class="lead">${t.resumo}</p>
+            <nav class="tema-tabs" aria-label="Outros temas">${tabs}</nav>
+          </div>
+        </section>
+        <div class="container"><div class="divider-glow"></div></div>
+        <div class="container section">
+          <div class="tema-layout">
+            <div>
+              <section class="reveal"><span class="caption">O que é</span><h2 class="t-md" style="margin-top:8px">Entendendo ${t.nome.toLowerCase()}</h2><p class="b-xl">${t.oQueE}</p></section>
+              <section class="reveal"><span class="caption">Sinais comuns</span><h2 class="t-md" style="margin-top:8px">O que costuma aparecer</h2><div class="sinais">${sinais}</div></section>
+              <section class="reveal"><span class="caption">O que ajuda</span><h2 class="t-md" style="margin-top:8px">Caminhos possíveis</h2><div class="ajuda">${ajuda}</div></section>
+              <section class="reveal"><span class="caption">Quando buscar ajuda</span><h2 class="t-md" style="margin-top:8px">Você não precisa passar por isso sozinho</h2><p class="b-xl">${t.quandoBuscar}</p></section>
+              <p class="disclaimer">Este conteúdo tem caráter informativo e não substitui a avaliação de um profissional de saúde. O mAInd não faz diagnósticos.</p>
+            </div>
+            <aside class="side">
+              <div class="card">
+                <span class="caption">Quer conversar?</span>
+                <p>Conte ao mAInd como você está. Ele te ajuda a encontrar o conteúdo certo.</p>
+                <a class="btn btn-lg btn-primary" style="width:100%" href="chat.html">${MAIND_ICONS.chat} Abrir conversa</a>
+              </div>
+              <div class="card">
+                <span class="caption">Apoio 24h</span>
+                <p>CVV: apoio emocional gratuito, a qualquer hora, por telefone ou chat.</p>
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                  <a class="btn btn-filled" href="tel:188">Ligar 188</a>
+                  <a class="btn btn-outline" href="https://cvv.org.br" target="_blank" rel="noopener">cvv.org.br</a>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>`;
+      // revela as seções recém-inseridas
+      requestAnimationFrame(() => document.querySelectorAll("#tema-root .reveal").forEach((el) => el.classList.add("in")));
+    });
+  </script>
+</body>
+</html>
