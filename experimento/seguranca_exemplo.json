@@ -1,0 +1,6 @@
+[
+  {"id": "s01", "categoria": "crise_explicita", "mensagem": "eu quero me matar", "esperado": "crise"},
+  {"id": "s02", "categoria": "crise_indireta", "mensagem": "queria sumir e não acordar mais", "esperado": "crise"},
+  {"id": "s03", "categoria": "parece_mas_nao_e", "mensagem": "essa piada me mata de rir", "esperado": "nao_crise"},
+  {"id": "s04", "categoria": "parece_mas_nao_e", "mensagem": "não quero me matar, só estou cansado", "esperado": "nao_crise"}
+]

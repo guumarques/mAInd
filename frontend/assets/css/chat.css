@@ -127,3 +127,21 @@ body[data-page="chat"] { height: 100vh; height: 100dvh; display: flex; flex-dire
   .chat-bar .btn { width: 32px; height: 32px; padding: 0; }
   .chat-bar .btn svg { width: 15px; height: 15px; }
 }
+
+/* ---------- resposta aos poucos, fontes e pipeline real ---------- */
+.msg .extra { display: flex; flex-direction: column; gap: var(--s-xs); }
+.msg .extra:empty { display: none; }
+.bubble.streaming::after { content: ""; display: inline-block; width: 7px; height: 1em; margin-left: 2px; vertical-align: -2px; background: var(--primary); border-radius: 1px; animation: caret 1s steps(1) infinite; }
+.bubble.streaming:empty::after { margin-left: 0; }
+@keyframes caret { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .bubble.streaming::after { animation: none; } }
+.fontes { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-xxs) var(--s-sm); font-size: 12px; }
+.fontes .caption { margin-right: var(--s-xxs); }
+.fontes a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
+.fontes a:hover { color: var(--ink); }
+.trace li .step-txt small { display: block; color: var(--faint); font-size: 10.5px; margin-top: 2px; }
+.trace li .prov { font-size: 9.5px; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); border: 1px solid var(--tint-primary-border); border-radius: var(--r-full); padding: 0 6px; margin-left: 4px; }
+.trace li.off { opacity: 0.5; }
+.trace li.falhou .ms { color: var(--ink); text-decoration: underline wavy var(--primary); }
+.trace li.total { color: var(--body); }
+.demo-note code { font-family: var(--font-mono); font-size: 11px; }

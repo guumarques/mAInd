@@ -1,0 +1,7 @@
+[
+  {"id": "ex01", "tema_esperado": "ansiedade", "mensagens": ["tô muito ansioso com a prova de amanhã", "não consigo dormir de jeito nenhum"]},
+  {"id": "ex02", "tema_esperado": "depressao", "mensagens": ["faz semanas que não tenho vontade de sair da cama"]},
+  {"id": "ex03", "tema_esperado": "estresse", "mensagens": ["trabalho, faculdade e contas, tá tudo acumulando", "sinto que não dou conta"]},
+  {"id": "ex04", "tema_esperado": "", "mensagens": ["oi", "tudo bem?"]},
+  {"id": "ex05", "tema_esperado": "", "mensagens": ["qual a capital da França?"]}
+]
