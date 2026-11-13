@@ -13,3 +13,4 @@ dados/*.db-*
 
 # resultados gerados pelo experimento
 experimento/resultados/
+TAREFAS.md

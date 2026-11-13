@@ -1,4 +1,4 @@
-"""Intenção da mensagem · Integrante 4.
+"""Intenção da mensagem.
 
 VERSÃO PROVISÓRIA: devolve sempre "desabafar". Substitua `classificar` pela versão real,
 mantendo o nome, os parâmetros e o formato de retorno. Os ids possíveis estão em
@@ -6,7 +6,6 @@ mantendo o nome, os parâmetros e o formato de retorno. Os ids possíveis estão
 """
 from servidor.contratos import ResultadoIntencao
 
-RESPONSAVEL = "Integrante 4"
 PROVISORIO = True
 DESCRICAO = "sempre 'desabafar' (provisório)"
 

@@ -41,7 +41,7 @@ O servidor fica em `../servidor/`. A documentação interativa das rotas abre em
 GET  /api/saude
   -> { "status": "ok", "perfil": "completo",
        "modelo": { "limiar_confianca": 0.5, "tema": "...", "provisorio": true },
-       "partes": { "<etapa>": { "ligada", "provisoria", "responsavel", "descricao" }, ... },
+       "partes": { "<etapa>": { "ligada", "provisoria", "descricao" }, ... },
        "guarda_conversas": true }
 
 POST /api/mensagem/stream   { "texto": "...", "sessao_id": "opcional" }      (usada pelo site)
@@ -66,7 +66,7 @@ POST /api/mensagem          { "texto": "...", "sessao_id": "opcional" }
        "trechos": [ { "titulo": "...", "fonte_url": "https://...", "tema": "ansiedade" } ],
        "revisao": { "permitida": true, "motivo": "" },
        "latencia_ms": 35,
-       "etapas": [ { "id", "nome", "responsavel", "descricao", "provisoria", "status", "ms", "detalhe" } ]
+       "etapas": [ { "id", "nome", "descricao", "provisoria", "status", "ms", "detalhe" } ]
      }
 
 GET    /api/sessao/{sessao_id}   -> { sessao_id, mensagens: [ { papel, texto } ] }

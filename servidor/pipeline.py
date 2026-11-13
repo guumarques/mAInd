@@ -57,7 +57,6 @@ class _Etapas:
         self.itens.append({
             "id": id_,
             "nome": nome,
-            "responsavel": getattr(parte, "RESPONSAVEL", "Integrante 5"),
             "descricao": getattr(parte, descricao_attr, "") if parte else "",
             "provisoria": bool(getattr(parte, "PROVISORIO", False)),
             "status": status,           # ok | falhou | desligada | pulada
@@ -83,7 +82,7 @@ class Pipeline:
         p = self.partes
         def info(parte, ligada, attr="DESCRICAO"):
             return {"ligada": ligada, "provisoria": bool(getattr(parte, "PROVISORIO", False)),
-                    "responsavel": getattr(parte, "RESPONSAVEL", ""), "descricao": getattr(parte, attr, "")}
+                    "descricao": getattr(parte, attr, "")}
         c = self.config
         return {
             "seguranca_entrada": info(p.seguranca, c.ligada("seguranca"), "DESCRICAO_ENTRADA"),

@@ -1,11 +1,10 @@
-"""Biblioteca de conhecimento · Integrante 3.
+"""Biblioteca de conhecimento.
 
 VERSÃO PROVISÓRIA: devolve sempre os mesmos trechos. Substitua `buscar` pela versão real,
 mantendo o nome, os parâmetros e o formato de retorno.
 """
 from servidor.contratos import Trecho
 
-RESPONSAVEL = "Integrante 3"
 PROVISORIO = True
 DESCRICAO = "trechos fixos (provisório)"
 
