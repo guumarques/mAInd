@@ -2,8 +2,7 @@
 
 Sobrevive a reinícios do servidor e pode ser apagada pelo usuário. Guarda só o necessário
 para o bot lembrar a conversa: texto, quem falou, quando, e a ação/tema decididos.
-O que mais pode ou não ser guardado, e por quanto tempo, segue os cuidados éticos do
-Integrante 2 (ver `MAIND_GUARDAR_CONVERSAS` e `apagar_antigas`).
+O que guardar e por quanto tempo se controla por `MAIND_GUARDAR_CONVERSAS` e `apagar_antigas`.
 """
 from __future__ import annotations
 

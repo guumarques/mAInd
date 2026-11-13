@@ -2,7 +2,7 @@
 
 Chatbot de acolhimento para pessoas passando por ansiedade, depressão, estresse e outros sofrimentos. Conversa como um amigo, ajuda a pessoa a entender o que sente e mostra caminhos de apoio. **Não faz diagnóstico e não substitui um profissional.** Em emergência: CVV 188 · SAMU 192.
 
-Projeto da disciplina C318 (Fundamentos de Machine Learning, Inatel). A divisão do trabalho está em [`TAREFAS.md`](TAREFAS.md).
+Projeto da disciplina C318 (Fundamentos de Machine Learning, Inatel).
 
 ## Como ligar
 
@@ -32,13 +32,13 @@ Cada mensagem passa por 5 etapas, nesta ordem:
              fixa na hora                         biblioteca                         antes de aparecer
 ```
 
-Cada etapa é uma parte separada, feita por um integrante, num arquivo em `servidor/partes/`. Enquanto a versão real não chega, cada parte tem uma versão provisória, e o site avisa quais ainda são provisórias. O que cada parte recebe e devolve está em [`CONTRATOS.md`](CONTRATOS.md).
+Cada etapa é uma parte separada, num arquivo em `servidor/partes/`. Enquanto a versão real não chega, cada parte tem uma versão provisória, e o site avisa quais ainda são provisórias. O que cada parte recebe e devolve está em [`CONTRATOS.md`](CONTRATOS.md).
 
 ## Pastas
 
 ```
-servidor/            API (FastAPI), memória da conversa e junção das partes      · Integrante 5
-  partes/            uma parte por arquivo: seguranca, tema, intencao,           · Integrantes 1 a 4
+servidor/            API (FastAPI), memória da conversa e junção das partes
+  partes/            uma parte por arquivo: seguranca, tema, intencao,
                      conhecimento, ia
   contratos.py       formatos que cada parte recebe e devolve
   pipeline.py        ordem das etapas, tratamento de falhas, revisão frase a frase
@@ -51,7 +51,7 @@ dados/               banco de conversas local (não vai para o GitHub)
 legado/              bot antigo (questionário de 24 perguntas), guardado para a comparação
 ```
 
-Cada integrante pode criar uma pasta para o próprio trabalho de ML (ex.: `modelos/tema/`, `notebooks/`) e adicionar as bibliotecas que usar ao `requirements.txt`.
+O treino dos modelos (notebooks, dados, modelos salvos) fica fora de `servidor/`, por exemplo em `modelos/<parte>/` e `notebooks/`. O arquivo em `servidor/partes/` só carrega o modelo e responde.
 
 ## Configuração
 
@@ -67,4 +67,4 @@ Tudo pelo arquivo `.env` (modelo em [`.env.example`](.env.example)). O `.env` gu
 
 ## Privacidade
 
-As conversas ficam só no computador onde o servidor roda (`dados/conversas.db`), e o botão "Apagar conversa" do chat as remove. Com `MAIND_GUARDAR_CONVERSAS=0`, nada é gravado. As regras definitivas (o que guardar e por quanto tempo) seguem os cuidados éticos definidos pelo Integrante 2.
+As conversas ficam só no computador onde o servidor roda (`dados/conversas.db`), e o botão "Apagar conversa" do chat as remove. Com `MAIND_GUARDAR_CONVERSAS=0`, nada é gravado.

@@ -1,8 +1,8 @@
 """Formatos que cada parte do mAInd recebe e devolve.
 
-Cada integrante implementa a própria parte em `servidor/partes/<parte>.py` respeitando
-estes formatos. Enquanto a versão real não chega, cada arquivo tem uma versão provisória
-que finge funcionar. A explicação completa está em `CONTRATOS.md`, na raiz do repositório.
+Cada parte fica em `servidor/partes/<parte>.py` e respeita estes formatos. Enquanto a
+versão real não chega, cada arquivo tem uma versão provisória que finge funcionar.
+A explicação completa está em `CONTRATOS.md`, na raiz do repositório.
 """
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ class Mensagem:
     texto: str
 
 
-# ---------------------------------------------------------------- segurança (Integrante 2)
+# ---------------------------------------------------------------- segurança
 @dataclass
 class ResultadoEntrada:
     """A mensagem da pessoa indica crise?"""
@@ -34,7 +34,7 @@ class ResultadoSaida:
     motivo: str = ""
 
 
-# ---------------------------------------------------------------- tema (Integrante 1)
+# ---------------------------------------------------------------- tema
 @dataclass
 class ResultadoTema:
     """Tema mais provável, a confiança do modelo e a chance de cada tema.
@@ -46,7 +46,7 @@ class ResultadoTema:
     probabilidades: dict[str, float]
 
 
-# ---------------------------------------------------------------- intenção (Integrante 4)
+# ---------------------------------------------------------------- intenção
 @dataclass
 class ResultadoIntencao:
     """O que a pessoa quer naquele momento. `intencao` é um dos ids de `INTENCOES`."""
@@ -54,7 +54,7 @@ class ResultadoIntencao:
     confianca: float
 
 
-# ---------------------------------------------------------------- conhecimento (Integrante 3)
+# ---------------------------------------------------------------- conhecimento
 @dataclass
 class Trecho:
     """Um trecho da biblioteca de conhecimento."""
@@ -64,7 +64,7 @@ class Trecho:
     tema: str | None = None
 
 
-# ---------------------------------------------------------------- conversa com a IA (Integrante 4)
+# ---------------------------------------------------------------- conversa com a IA
 @dataclass
 class Orientacoes:
     """O que a IA recebe além da conversa para escrever a resposta."""

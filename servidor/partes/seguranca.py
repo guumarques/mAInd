@@ -1,4 +1,4 @@
-"""Segurança da conversa · Integrante 2.
+"""Segurança da conversa.
 
 VERSÃO PROVISÓRIA. Substitua o corpo das duas funções pela versão real, mantendo
 os nomes, os parâmetros e o formato de retorno (ver `CONTRATOS.md`).
@@ -6,7 +6,6 @@ os nomes, os parâmetros e o formato de retorno (ver `CONTRATOS.md`).
 from servidor.contratos import Mensagem, ResultadoEntrada, ResultadoSaida
 from servidor.rede_minima import parece_crise
 
-RESPONSAVEL = "Integrante 2"
 PROVISORIO = True
 DESCRICAO_ENTRADA = "lista fixa de expressões de risco (provisória)"
 DESCRICAO_SAIDA = "aprova tudo (provisória)"

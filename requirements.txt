@@ -1,4 +1,4 @@
-# Plataforma (servidor + testes). Cada integrante adiciona aqui as bibliotecas da própria parte.
+# Servidor e testes. Bibliotecas dos modelos de cada parte entram aqui também.
 fastapi>=0.115
 uvicorn>=0.30
 python-dotenv>=1.0

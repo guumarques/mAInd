@@ -1,4 +1,4 @@
-"""Tema da conversa · Integrante 1.
+"""Tema da conversa.
 
 VERSÃO PROVISÓRIA: devolve sempre o mesmo resultado. Substitua `classificar` pela versão
 real (o modelo treinado), mantendo o nome, os parâmetros e o formato de retorno.
@@ -6,7 +6,6 @@ A versão real deve responder em menos de 1 segundo.
 """
 from servidor.contratos import Mensagem, ResultadoTema
 
-RESPONSAVEL = "Integrante 1"
 PROVISORIO = True
 DESCRICAO = "resultado fixo (provisório)"
 

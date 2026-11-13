@@ -1,10 +1,10 @@
 # Contratos das partes
 
-Cada parte do mAInd é um arquivo em `servidor/partes/`. Hoje todos têm uma **versão provisória** que finge funcionar, para o chat já rodar de ponta a ponta. Para entregar a versão real, troque o conteúdo do seu arquivo **mantendo o nome da função, os parâmetros e o formato de retorno** descritos aqui. Os formatos estão definidos em código em `servidor/contratos.py`.
+Cada parte do mAInd é um arquivo em `servidor/partes/`. Hoje todos têm uma **versão provisória** que finge funcionar, para o chat já rodar de ponta a ponta. A versão real substitui o conteúdo do arquivo **mantendo o nome da função, os parâmetros e o formato de retorno** descritos aqui. Os formatos estão definidos em código em `servidor/contratos.py`.
 
-Quando a sua versão for a real, mude `PROVISORIO = True` para `False` e atualize `DESCRICAO` (ela aparece no painel "Análise do modelo" do site). Modelos treinados, arquivos de dados e notebooks podem ficar numa pasta sua (ex.: `modelos/tema/`, `notebooks/`); o arquivo em `servidor/partes/` só carrega o modelo e responde.
+Na versão real, `PROVISORIO` passa a `False` e `DESCRICAO` descreve o modelo (ela aparece no painel "Análise do modelo" do site). Modelos treinados, dados e notebooks ficam fora de `servidor/` (ex.: `modelos/tema/`, `notebooks/`); o arquivo em `servidor/partes/` só carrega o modelo e responde.
 
-Se precisar mudar um contrato, combine com o Integrante 5 antes: o servidor e o site dependem deles.
+O servidor e o site dependem destes formatos: mudar um contrato exige mudar os dois lados juntos.
 
 ## Ordem em que o servidor chama as partes
 
@@ -26,7 +26,7 @@ Se uma parte levantar um erro, a conversa segue sem ela (e com a mensagem de res
 
 ---
 
-## Segurança · Integrante 2 · `servidor/partes/seguranca.py`
+## Segurança · `servidor/partes/seguranca.py`
 
 ```python
 def verificar_entrada(mensagem: str, historico: list[Mensagem]) -> ResultadoEntrada
@@ -42,7 +42,7 @@ def revisar_saida(resposta: str) -> ResultadoSaida
 - Se `verificar_entrada` levantar erro, o servidor usa uma rede mínima de expressões óbvias (`servidor/rede_minima.py`), para uma crise explícita nunca passar.
 - A resposta de crise é o texto fixo em `servidor/textos.py`. Troque pelo texto aprovado no protocolo de crise.
 
-## Tema · Integrante 1 · `servidor/partes/tema.py`
+## Tema · `servidor/partes/tema.py`
 
 ```python
 def classificar(mensagem: str, historico: list[Mensagem]) -> ResultadoTema
@@ -52,9 +52,9 @@ def classificar(mensagem: str, historico: list[Mensagem]) -> ResultadoTema
 - `tema` e as chaves de `probabilidades` são ids de `TEMAS` em `servidor/contratos.py`: `estresse`, `depressao`, `bipolaridade`, `personalidade`, `ansiedade`. Se "solidão" entrar no modelo, adicione `"solidao": "Solidão"` em `TEMAS`.
 - `probabilidades` tem todos os temas e soma 1. `confianca` é a probabilidade do tema escolhido.
 - Precisa responder em menos de 1 segundo. Carregue o modelo uma vez, quando o módulo é importado, e não a cada chamada.
-- O limiar de confiança fica em `MAIND_LIMIAR` no `.env` (padrão 0,5). Quando você definir o valor com base nos dados, me passe para eu atualizar o padrão.
+- O limiar de confiança fica em `MAIND_LIMIAR` no `.env` (padrão 0,5). O valor final deve ser escolhido com base nos dados.
 
-## Intenção · Integrante 4 · `servidor/partes/intencao.py`
+## Intenção · `servidor/partes/intencao.py`
 
 ```python
 def classificar(mensagem: str) -> ResultadoIntencao
@@ -64,7 +64,7 @@ def classificar(mensagem: str) -> ResultadoIntencao
 - Ids possíveis em `INTENCOES` (`servidor/contratos.py`): `cumprimentar`, `desabafar`, `pedir_informacao`, `pedir_exercicio`, `agradecer`, `fora_do_tema`. Intenções novas entram lá.
 - `INTENCOES_SEM_TEMA` lista as intenções em que o bot não procura tema. Ajuste junto com as regras de condução.
 
-## Conhecimento · Integrante 3 · `servidor/partes/conhecimento.py`
+## Conhecimento · `servidor/partes/conhecimento.py`
 
 ```python
 def buscar(consulta: str, tema: str | None, k: int = 3) -> list[Trecho]
@@ -74,7 +74,7 @@ def buscar(consulta: str, tema: str | None, k: int = 3) -> list[Trecho]
 - Devolve até `k` trechos, do mais para o menos relevante. `tema` pode ser `None` (por exemplo, quando a pessoa pede um exercício sem tema claro).
 - O site mostra `titulo` e o link `fonte_url` embaixo da resposta. A IA recebe também o `texto`.
 
-## Conversa com a IA · Integrante 4 · `servidor/partes/ia.py`
+## Conversa com a IA · `servidor/partes/ia.py`
 
 ```python
 def gerar(historico: list[Mensagem], orientacoes: Orientacoes, timeout_s: float) -> Iterator[str]
@@ -89,10 +89,10 @@ def gerar(historico: list[Mensagem], orientacoes: Orientacoes, timeout_s: float)
 
 ---
 
-## Como testar a sua parte
+## Como testar
 
 ```bash
-python -m pytest            # testes da plataforma (usam partes falsas, não dependem da sua)
+python -m pytest            # testes da plataforma (usam partes falsas, não dependem das reais)
 python -m servidor          # liga tudo e abre em http://127.0.0.1:8000
 ```
 

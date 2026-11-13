@@ -1,4 +1,4 @@
-"""Peças comuns dos testes: partes falsas, controláveis, no lugar das partes de cada integrante."""
+"""Peças comuns dos testes: partes falsas, controláveis, no lugar das partes reais."""
 from types import SimpleNamespace
 
 import pytest
@@ -30,7 +30,7 @@ class Falsas:
         f = self
 
         class seguranca:
-            RESPONSAVEL, PROVISORIO = "teste", False
+            PROVISORIO = False
             @staticmethod
             def verificar_entrada(msg, hist):
                 f.chamadas.append("seguranca_entrada")

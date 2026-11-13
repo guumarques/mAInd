@@ -1,7 +1,7 @@
 """Textos fixos do bot: nunca passam pela IA.
 
-PROVISÓRIOS: a resposta de crise definitiva é escrita pelo Integrante 2 e aprovada pelo grupo
-(protocolo de crise). Quando ela existir, substitua `RESPOSTA_CRISE` aqui.
+PROVISÓRIOS: a resposta de crise definitiva vem do protocolo de crise aprovado pelo grupo.
+Quando ela existir, substitua `RESPOSTA_CRISE` aqui.
 """
 
 RESPOSTA_CRISE = (

@@ -1,4 +1,4 @@
-"""Conversa com a IA · Integrante 4.
+"""Conversa com a IA.
 
 VERSÃO PROVISÓRIA: devolve sempre frases fixas, em pedaços, imitando a IA escrevendo.
 Substitua `gerar` pela versão real, mantendo o nome, os parâmetros e o formato:
@@ -15,7 +15,6 @@ from collections.abc import Iterator
 
 from servidor.contratos import Mensagem, Orientacoes
 
-RESPONSAVEL = "Integrante 4"
 PROVISORIO = True
 DESCRICAO = "frases fixas (provisório)"
 
