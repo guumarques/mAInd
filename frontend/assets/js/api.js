@@ -1,13 +1,8 @@
 /* Cliente da API do mAInd.
 
-Contrato esperado do backend (Flask):
-  GET  /api/saude     -> { status: "ok", modelo: { encoder, classificador, limiar_confianca, ... } }
-  POST /api/mensagem  body { texto, sessao_id? }
-                      -> { sessao_id, resposta, acao: "encaminhar" | "pedir_detalhes" | "crise" | "conversa",
-                           tema: { id, nome } | null, confianca, limiar,
-                           probabilidades: [{ id, nome, p }], latencia_ms }
+Contrato com o servidor: ver frontend/README.md (rotas /api/saude, /api/mensagem/stream e /api/sessao).
 
-Se o backend não responder, o chat entra em MODO DEMONSTRAÇÃO: um classificador simples
+Se o servidor não responder, o chat entra em MODO DEMONSTRAÇÃO: um classificador simples
 de palavras-chave roda no navegador, só para a interface poder ser mostrada sem servidor.
 Ele NÃO é o modelo do projeto, e a interface deixa isso visível. */
 (function () {
@@ -90,36 +85,102 @@ Ele NÃO é o modelo do projeto, e a interface deixa isso visível. */
     };
   }
 
+  // ------------------------------------------------------------ resposta aos poucos (SSE via fetch)
+  class ErroAmigavel extends Error {}
+
+  async function lerEventos(resp, aoEvento) {
+    const leitor = resp.body.getReader();
+    const dec = new TextDecoder();
+    let buf = "";
+    for (;;) {
+      const { value, done } = await leitor.read();
+      if (done) break;
+      buf += dec.decode(value, { stream: true });
+      let i;
+      buf = buf.replace(/\r\n/g, "\n");
+      while ((i = buf.indexOf("\n\n")) >= 0) {
+        const bloco = buf.slice(0, i); buf = buf.slice(i + 2);
+        let evento = "message", dados = "";
+        for (const linha of bloco.split("\n")) {
+          if (linha.startsWith("event: ")) evento = linha.slice(7);
+          else if (linha.startsWith("data: ")) dados += linha.slice(6);
+        }
+        aoEvento(evento, dados ? JSON.parse(dados) : null);
+      }
+    }
+  }
+
+  async function enviarAoServidor(texto, sessaoId, cb) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), cfg.TIMEOUT_MS);   // só até a resposta começar
+    let resp;
+    try {
+      resp = await fetch(`${cfg.API_URL}/api/mensagem/stream`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ texto, sessao_id: sessaoId }), signal: ctrl.signal,
+      });
+    } finally { clearTimeout(timer); }
+    if (!resp.ok) {
+      let msg = "Não consegui enviar sua mensagem. Pode tentar de novo?";
+      try { msg = (await resp.json()).erro || msg; } catch {}
+      throw new ErroAmigavel(msg);
+    }
+    const r = {};
+    await lerEventos(resp, (evento, d) => {
+      if (evento === "analise") { Object.assign(r, d); cb.onAnalise && cb.onAnalise(r); }
+      else if (evento === "texto") { cb.onTexto && cb.onTexto(d); }
+      else if (evento === "substituir") { cb.onSubstituir && cb.onSubstituir(d); }
+      else if (evento === "fim") { Object.assign(r, d); }
+      else if (evento === "erro") { throw new ErroAmigavel(d.erro); }
+    });
+    if (!r.resposta) throw new ErroAmigavel("A resposta foi interrompida. Pode tentar de novo?");
+    return r;
+  }
+
   // ------------------------------------------------------------ API pública
   window.MaindAPI = {
-    modo: "verificando",   // "modelo" | "demo" | "verificando"
+    modo: "verificando",   // "servidor" | "demo" | "verificando"
     info: null,
     limiar: 0.5,
+    ErroAmigavel,
 
     async verificar() {
       try {
         const r = await fetchJSON(`${cfg.API_URL}/api/saude`);
-        this.modo = "modelo"; this.info = r.modelo || {};
-        if (typeof this.info.limiar_confianca === "number") this.limiar = this.info.limiar_confianca;
+        this.modo = "servidor"; this.info = r;
+        const lim = r.modelo && r.modelo.limiar_confianca;
+        if (typeof lim === "number") this.limiar = lim;
       } catch {
         this.modo = "demo"; this.info = null;
       }
       return this.modo;
     },
 
-    async enviar(texto, sessaoId) {
-      if (this.modo === "modelo") {
+    /* Envia a mensagem. A resposta chega aos poucos pelos callbacks:
+       onAnalise(r) quando o servidor decide o que fazer, onTexto(pedaço) a cada trecho revisado,
+       onSubstituir(texto) se o que já apareceu precisar ser trocado. Devolve a resposta completa. */
+    async enviar(texto, sessaoId, cb = {}) {
+      if (this.modo === "servidor") {
         try {
-          return await fetchJSON(`${cfg.API_URL}/api/mensagem`, {
-            method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ texto, sessao_id: sessaoId }),
-          });
-        } catch {
-          this.modo = "demo";   // backend caiu durante a conversa
+          return await enviarAoServidor(texto, sessaoId, cb);
+        } catch (e) {
+          if (e instanceof ErroAmigavel) throw e;
+          this.modo = "demo";   // servidor caiu ou não respondeu a tempo
         }
       }
-      await new Promise((r) => setTimeout(r, 450 + Math.random() * 400));   // latência simulada
-      return demoResponder(texto, this.limiar);
+      await new Promise((res) => setTimeout(res, 450 + Math.random() * 400));   // latência simulada
+      const r = demoResponder(texto, this.limiar);
+      cb.onAnalise && cb.onAnalise(r);
+      for (const palavra of r.resposta.split(" ")) {
+        await new Promise((res) => setTimeout(res, 25));
+        cb.onTexto && cb.onTexto(palavra + " ");
+      }
+      return r;
+    },
+
+    async apagar(sessaoId) {
+      if (this.modo !== "servidor" || !sessaoId) return;
+      try { await fetch(`${cfg.API_URL}/api/sessao/${encodeURIComponent(sessaoId)}`, { method: "DELETE" }); } catch {}
     },
   };
 })();

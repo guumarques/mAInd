@@ -5,3 +5,11 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 .DS_Store
+.pytest_cache/
+
+# memória das conversas (dados de usuários: nunca versionar)
+dados/*.db
+dados/*.db-*
+
+# resultados gerados pelo experimento
+experimento/resultados/

@@ -40,7 +40,7 @@
         <div class="preview reveal" aria-label="Exemplo ilustrativo de conversa">
           <div class="card-lg card" style="box-shadow:var(--shadow-lg)">
             <div class="preview-top">
-              <span class="caption">Exemplo · saída real do modelo</span>
+              <span class="caption">Exemplo ilustrativo · números fictícios</span>
               <span class="pill"><span class="dot on"></span>mAInd</span>
             </div>
             <div class="preview-msgs" id="pv-msgs"></div>
@@ -107,16 +107,16 @@
           <div class="pipe-step"><span class="mono">01</span><h4>Problema de negócio</h4><p>Acolher e encaminhar a partir de um relato livre</p></div>
           <div class="pipe-step"><span class="mono">02</span><h4>Dados</h4><p>Posts rotulados de comunidades de saúde mental</p></div>
           <div class="pipe-step"><span class="mono">03</span><h4>Análise (EDA)</h4><p>Vocabulário por tema, duplicados, ruído</p></div>
-          <div class="pipe-step"><span class="mono">04</span><h4>Preparação</h4><p>Limpeza e embeddings multilíngues</p></div>
-          <div class="pipe-step ml"><span class="mono">05</span><h4>Modelagem</h4><p>Regressão logística com validação cruzada</p></div>
+          <div class="pipe-step"><span class="mono">04</span><h4>Preparação</h4><p>Limpeza, duplicados e separação do teste</p></div>
+          <div class="pipe-step ml"><span class="mono">05</span><h4>Modelagem</h4><p>Comparação de modelos com uma referência simples</p></div>
           <div class="pipe-step ml"><span class="mono">06</span><h4>Avaliação</h4><p>F1 macro, matriz de confusão, limiar</p></div>
-          <div class="pipe-step"><span class="mono">07</span><h4>Produção</h4><p>API Flask + este frontend</p></div>
+          <div class="pipe-step"><span class="mono">07</span><h4>Produção</h4><p>Servidor FastAPI + este site</p></div>
           <div class="pipe-loop">modelagem ⇄ avaliação</div>
         </div>
         <div class="stack reveal">
           <span class="pill">Classificação supervisionada · 5 classes</span>
-          <span class="pill">sentence-transformers · multilíngue</span>
-          <span class="pill">scikit-learn · LogisticRegression</span>
+          <span class="pill">Modelo de intenção</span>
+          <span class="pill">Busca na biblioteca de conhecimento</span>
           <span class="pill">Métrica: F1 macro</span>
           <span class="pill">Limiar de confiança</span>
           <span class="pill">Protocolo de crise por regra</span>
@@ -164,7 +164,7 @@
       }).join("");
       document.querySelectorAll("#temas-grid .reveal").forEach((el, i) => setTimeout(() => el.classList.add("in"), 80 * i));
 
-      // prévia animada: 3 frases de exemplo com as probabilidades reais devolvidas pelo modelo treinado
+      // prévia animada: 3 frases de exemplo com probabilidades ILUSTRATIVAS (trocar pelas do modelo real quando existir)
       const nomes = ["Estresse", "Depressão", "Bipolaridade", "Personalidade", "Ansiedade"];
       const exemplos = [
         { user: "Tive uma crise de pânico no ônibus e agora tenho medo de sair de casa",
