@@ -1,0 +1,7 @@
+experimento,modelo,quantidade_variaveis,f1_macro_medio,f1_macro_desvio
+B - Depressão e ansiedade,Random Forest,2,1.0,0.0
+A - Completo,Regressão Logística,12,0.9707257863707517,0.0029928044254123043
+B - Depressão e ansiedade,Regressão Logística,2,0.9551063689175707,0.003595912353556258
+A - Completo,Random Forest,12,0.9515960518598812,0.009178186668232136
+C - Sem depressão e ansiedade,Random Forest,10,0.32477840937774805,0.0071562326976515175
+C - Sem depressão e ansiedade,Regressão Logística,10,0.3247449719931822,0.01127231284422098
